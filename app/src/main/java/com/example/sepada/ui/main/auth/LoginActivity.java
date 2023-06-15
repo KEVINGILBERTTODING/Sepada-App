@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
@@ -34,12 +35,14 @@ public class LoginActivity extends AppCompatActivity {
     private AuthService authService;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private TextView tvDaftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         etUsername = findViewById(R.id.etUsername);
+        tvDaftar = findViewById(R.id.tvDaftar);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         authService = ApiConfig.getClient().create(AuthService.class);
@@ -76,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
                     login();
                 }
+            }
+        });
+        tvDaftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivtiy.class));
             }
         });
 

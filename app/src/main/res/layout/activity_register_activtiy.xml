@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main"
-    tools:context=".ui.main.auth.LoginActivity">
+    tools:context=".ui.main.auth.RegisterActivtiy">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/popsem"
+        android:id="@+id/tvRegister"
         android:layout_marginTop="@dimen/_20sdp"
         android:textColor="@color/white"
         android:padding="@dimen/_10sdp"
         android:textSize="@dimen/_30ssp"
-        android:text="Welcome\nBack"/>
+        android:text="Register"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:padding="@dimen/_10sdp"
         android:background="@drawable/container1"
-        android:layout_height="@dimen/_400sdp"
-        android:layout_marginTop="@dimen/_80sdp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvRegister"
         android:orientation="vertical">
 
 
@@ -61,6 +61,29 @@
             app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
             app:boxCornerRadiusBottomStart="@dimen/_10sdp"
             app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+            app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/popmed"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black"
+            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
             app:passwordToggleEnabled="true"
             app:boxCornerRadiusTopStart="@dimen/_10sdp">
 
@@ -70,6 +93,30 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/popmed"
                 android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black"
+            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+            app:passwordToggleEnabled="true"
+            app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassKonfirmasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/popmed"
+                android:hint="Password Konfirmasi"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp">
@@ -93,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Login"
+            android:text="Register"
             android:padding="@dimen/_10sdp"
             app:backgroundTint="@color/main"
             android:layout_marginTop="@dimen/_20sdp"/>
@@ -116,13 +163,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daftar"
-                android:id="@+id/tvDaftar"
                 android:fontFamily="@font/popsem"
                 android:textColor="@color/main"
                 android:textSize="@dimen/_10ssp"/>
         </LinearLayout>
 
     </LinearLayout>
-
 
 </RelativeLayout>

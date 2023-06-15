@@ -15,4 +15,12 @@ public interface AuthService {
             @Field("username") String username,
             @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @POST("auth/register")
+    Call<AuthModel> register(
+            @Field("username") String username,
+            @Field("email") String email,
+            @Field("password") String password
+    );
 }
