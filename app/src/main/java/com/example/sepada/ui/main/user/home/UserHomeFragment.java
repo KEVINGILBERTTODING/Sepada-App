@@ -1,6 +1,7 @@
 package com.example.sepada.ui.main.user.home;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,13 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.TamuModel;
+import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentUserHomeBinding;
 import com.example.sepada.ui.main.auth.LoginActivity;
 import com.example.sepada.ui.main.user.adapter.RiwayatTamuAdapter;
+import com.example.sepada.ui.main.user.profile.UpdateProfileFragment;
 import com.example.sepada.util.Constans;
 import com.example.sepada.util.UserService;
 
@@ -61,6 +65,7 @@ public class UserHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listener();
         getMyHistory();
+        checkProfile();
     }
 
     private void listener() {
@@ -77,6 +82,38 @@ public class UserHomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void checkProfile() {
+        showProgressBar("Loading", "Mengecek profile anda....", true);
+        userService.getDetailProfile(userId).enqueue(new Callback<UserDetailModel>() {
+            @Override
+            public void onResponse(Call<UserDetailModel> call, Response<UserDetailModel> response) {
+                if (response.isSuccessful() && response.body() == null) {
+                    Dialog dialog = new Dialog(getContext());
+                    dialog.setContentView(R.layout.layout_alert);
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    Button btnProfile = dialog.findViewById(R.id.btnProfile);
+                    dialog.show();
+
+                    btnProfile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameUser, new UpdateProfileFragment())
+                                    .addToBackStack(null).commit();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDetailModel> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getMyHistory() {

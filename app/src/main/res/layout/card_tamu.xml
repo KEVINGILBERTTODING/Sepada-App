@@ -109,6 +109,17 @@
             android:text="DPRD Jawa Tengah"
             android:id="@+id/tvInstansi"
             android:fontFamily="@font/popsem"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green_light"
+            android:text="Diterima"
+            android:layout_gravity="end"
+            android:textSize="@dimen/_9ssp"
+            android:id="@+id/tvStatus"
+            android:fontFamily="@font/popmed"/>
     </LinearLayout>
 
         </RelativeLayout>

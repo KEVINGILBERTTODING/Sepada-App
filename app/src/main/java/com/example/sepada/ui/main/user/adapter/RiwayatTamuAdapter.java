@@ -38,6 +38,17 @@ public class RiwayatTamuAdapter extends RecyclerView.Adapter<RiwayatTamuAdapter.
         holder.tvInstansi.setText(tamuModelList.get(holder.getAdapterPosition()).getNamaLengkap());
         holder.tvTotalPerson.setText(tamuModelList.get(holder.getAdapterPosition()).getJumlah());
 
+        if (tamuModelList.get(holder.getAdapterPosition()).getIdStatus().equals("1")) {
+            holder.tvStatus.setText("Menunggu");
+            holder.tvStatus.setTextColor(context.getColor(R.color.yellow));
+        }else if (tamuModelList.get(holder.getAdapterPosition()).getIdStatus().equals("2")) {
+            holder.tvStatus.setText("Diterima");
+            holder.tvStatus.setTextColor(context.getColor(R.color.green_light));
+        }else if (tamuModelList.get(holder.getAdapterPosition()).getIdStatus().equals("3")) {
+            holder.tvStatus.setText("Ditolak");
+            holder.tvStatus.setTextColor(context.getColor(R.color.red));
+        }
+
     }
 
     @Override
@@ -51,7 +62,7 @@ public class RiwayatTamuAdapter extends RecyclerView.Adapter<RiwayatTamuAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTime, tvDate, tvInstansi, tvTotalPerson;
+        TextView tvTime, tvDate, tvInstansi, tvTotalPerson, tvStatus;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -59,6 +70,7 @@ public class RiwayatTamuAdapter extends RecyclerView.Adapter<RiwayatTamuAdapter.
             tvDate = itemView.findViewById(R.id.tvDate);
             tvInstansi = itemView.findViewById(R.id.tvInstansi);
             tvTotalPerson = itemView.findViewById(R.id.tvTotalPerson);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
         }
 
 
