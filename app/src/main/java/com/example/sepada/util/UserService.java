@@ -5,12 +5,18 @@ import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface UserService {
@@ -36,17 +42,14 @@ public interface UserService {
             @Field("jabatan") String jabatan
     );
 
-    @FormUrlEncoded
+    @Multipart
     @POST("user/insertPengajuan")
     Call<ResponseModel> insertPengajuan(
-            @Field("id_user") String id_user,
-            @Field("tujuan") String tujuan,
-            @Field("alasan") String alasan,
-            @Field("jam") String jam,
-            @Field("jumlah") String jumlah,
-            @Field("tanggal") String tanggal
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part file
+            );
 
-    );
+
 
 
 

@@ -9,9 +9,9 @@ public class ResponseModel implements Serializable {
     @SerializedName("code")
     Integer code;
     @SerializedName("message")
-    Integer message;
+    String message;
 
-    public ResponseModel(Integer code, Integer message) {
+    public ResponseModel(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -24,11 +24,11 @@ public class ResponseModel implements Serializable {
         this.code = code;
     }
 
-    public Integer getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Integer message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 }
