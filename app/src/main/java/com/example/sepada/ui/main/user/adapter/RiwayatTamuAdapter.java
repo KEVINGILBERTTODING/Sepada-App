@@ -1,16 +1,20 @@
 package com.example.sepada.ui.main.user.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sepada.R;
 import com.example.sepada.data.model.TamuModel;
+import com.example.sepada.ui.main.user.tamu.DetailPengajuanFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +65,7 @@ public class RiwayatTamuAdapter extends RecyclerView.Adapter<RiwayatTamuAdapter.
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTime, tvDate, tvInstansi, tvTotalPerson, tvStatus;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,9 +75,27 @@ public class RiwayatTamuAdapter extends RecyclerView.Adapter<RiwayatTamuAdapter.
             tvInstansi = itemView.findViewById(R.id.tvInstansi);
             tvTotalPerson = itemView.findViewById(R.id.tvTotalPerson);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View v) {
+            Fragment fragment = new DetailPengajuanFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("nama_instansi", tamuModelList.get(getAdapterPosition()).getNamaLengkap());
+            bundle.putString("tujuan", tamuModelList.get(getAdapterPosition()).getTujuan());
+            bundle.putString("tanggal", tamuModelList.get(getAdapterPosition()).getTanggal());
+            bundle.putString("waktu", tamuModelList.get(getAdapterPosition()).getJam());
+            bundle.putString("status", tamuModelList.get(getAdapterPosition()).getIdStatus());
+            bundle.putString("alasan_verifikasi", tamuModelList.get(getAdapterPosition()).getAlasanVerifikasi());
+            bundle.putString("jumlah", tamuModelList.get(getAdapterPosition()).getJumlah());
+            bundle.putString("alasan", tamuModelList.get(getAdapterPosition()).getAlasan());
+            bundle.putString("id", tamuModelList.get(getAdapterPosition()).getIdTamu());
+            fragment.setArguments(bundle);
+            ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameUser, fragment).addToBackStack(null).commit();
 
+        }
     }
 }
