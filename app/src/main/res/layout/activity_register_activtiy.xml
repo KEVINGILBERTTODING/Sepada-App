@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text="Belum memiliki akun? "
                 android:fontFamily="@font/popmed"
-                android:textColor="@color/ligh_gray"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/_10ssp"/>
 
             <TextView

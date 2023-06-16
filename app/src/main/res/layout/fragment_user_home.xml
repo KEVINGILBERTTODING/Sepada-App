@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.userh.home.UserHomeFragment">
+<layout android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="@dimen/_10sdp"
+        tools:context=".ui.main.user.home.UserHomeFragment">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hai,"
+                android:fontFamily="@font/popsem"
+                android:textSize="@dimen/_25ssp"
+                android:textColor="@color/main"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selamat datang"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_11ssp"
+                android:layout_marginTop="@dimen/_minus5sdp"
+                android:textColor="@color/gray"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchBar"
+                app:queryHint="Cari tanggal pengajuan"
+                app:iconifiedByDefault="false"
+                android:background="@drawable/container_searchview"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Riwayat"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/main"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTamu"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak ada data."
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/popsem"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/main"/>
+
+
+
+
+    </RelativeLayout>
+</layout>

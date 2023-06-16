@@ -1,66 +1,154 @@
 package com.example.sepada.ui.main.user.home;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sepada.R;
+import com.example.sepada.data.api.ApiConfig;
+import com.example.sepada.data.model.TamuModel;
+import com.example.sepada.databinding.FragmentUserHomeBinding;
+import com.example.sepada.ui.main.auth.LoginActivity;
+import com.example.sepada.ui.main.user.adapter.RiwayatTamuAdapter;
+import com.example.sepada.util.Constans;
+import com.example.sepada.util.UserService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class UserHomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public UserHomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserHomeFragment newInstance(String param1, String param2) {
-        UserHomeFragment fragment = new UserHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentUserHomeBinding binding;
+    private AlertDialog progressDialog;
+    private GridLayoutManager gridLayoutManager;
+    private List<TamuModel> tamuModelList;
+    private SharedPreferences sharedPreferences;
+    private UserService userService;
+    private RiwayatTamuAdapter riwayatTamuAdapter;
+    private String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_home2, container, false);
+        binding = FragmentUserHomeBinding.inflate(inflater, container, false);
+        sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        userId = sharedPreferences.getString(Constans.USER_ID, null);
+        userService = ApiConfig.getClient().create(UserService.class);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        listener();
+        getMyHistory();
+    }
+
+    private void listener() {
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+    }
+
+    private void getMyHistory() {
+        showProgressBar("Loading", "Memuat data...", true);
+        userService.getMyCuti(userId).enqueue(new Callback<List<TamuModel>>() {
+            @Override
+            public void onResponse(Call<List<TamuModel>> call, Response<List<TamuModel>> response) {
+                showProgressBar("d", "ds", false);
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    tamuModelList = response.body();
+                    riwayatTamuAdapter = new RiwayatTamuAdapter(getContext(), tamuModelList);
+                    gridLayoutManager = new GridLayoutManager(getContext(),2, LinearLayoutManager.VERTICAL,false);
+                    binding.rvTamu.setLayoutManager(gridLayoutManager);
+                    binding.rvTamu.setAdapter(riwayatTamuAdapter);
+                    binding.rvTamu.setHasFixedSize(true);
+
+                }else {
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TamuModel>> call, Throwable t) {
+                showProgressBar("d", "ds", false);
+                showToast("err", "Tidak ada koneksi internet");
+            }
+        });
+
+
+    }
+
+    private void filter(String text) {
+        ArrayList<TamuModel> filterList = new ArrayList<>();
+        for (TamuModel item : tamuModelList) {
+            if (item.getTanggal().toString().contains(text.toLowerCase())) {
+                filterList.add(item);
+            }
+
+            riwayatTamuAdapter.filter(filterList);
+            if (filterList.isEmpty()) {
+
+            }else {
+                riwayatTamuAdapter.filter(filterList);
+            }
+        }
+    }
+
+
+    private void showProgressBar(String title, String message, boolean isLoading) {
+        if (isLoading) {
+            // Membuat progress dialog baru jika belum ada
+            if (progressDialog == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(title);
+                builder.setMessage(message);
+                builder.setCancelable(false);
+                progressDialog = builder.create();
+            }
+            progressDialog.show(); // Menampilkan progress dialog
+        } else {
+            // Menyembunyikan progress dialog jika ada
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+    }
+    private void showToast(String jenis, String text) {
+        if (jenis.equals("success")) {
+            Toasty.success(getContext(), text, Toasty.LENGTH_SHORT).show();
+        }else {
+            Toasty.error(getContext(), text, Toasty.LENGTH_SHORT).show();
+        }
     }
 }
