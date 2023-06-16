@@ -27,6 +27,7 @@ import com.example.sepada.databinding.FragmentUserHomeBinding;
 import com.example.sepada.ui.main.auth.LoginActivity;
 import com.example.sepada.ui.main.user.adapter.RiwayatTamuAdapter;
 import com.example.sepada.ui.main.user.profile.UpdateProfileFragment;
+import com.example.sepada.ui.main.user.tamu.PengajuanTamuFragment;
 import com.example.sepada.util.Constans;
 import com.example.sepada.util.UserService;
 
@@ -79,6 +80,13 @@ public class UserHomeFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
                 return false;
+            }
+        });
+        binding.btnInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameUser, new PengajuanTamuFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -188,4 +196,6 @@ public class UserHomeFragment extends Fragment {
             Toasty.error(getContext(), text, Toasty.LENGTH_SHORT).show();
         }
     }
+
+
 }

@@ -36,6 +36,20 @@ public interface UserService {
             @Field("jabatan") String jabatan
     );
 
+    @FormUrlEncoded
+    @POST("user/insertPengajuan")
+    Call<ResponseModel> insertPengajuan(
+            @Field("id_user") String id_user,
+            @Field("tujuan") String tujuan,
+            @Field("alasan") String alasan,
+            @Field("jam") String jam,
+            @Field("jumlah") String jumlah,
+            @Field("tanggal") String tanggal
+
+    );
+
+
+
 
 
 }

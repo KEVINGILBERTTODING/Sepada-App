@@ -70,7 +70,27 @@ public class UpdateProfileFragment extends Fragment {
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile();
+                if (binding.etNamaInstansi.getText().toString().isEmpty()) {
+                    binding.etNamaInstansi.requestFocus();
+                    binding.etNamaInstansi.setError("Tidak boleh kosong");
+                }else if (binding.etTelepon.getText().toString().isEmpty()) {
+                    binding.etTelepon.requestFocus();
+                    binding.etTelepon.setError("Tidak boleh kosong");
+                }else if (binding.etAlamat.getText().toString().isEmpty()) {
+                    binding.etAlamat.requestFocus();
+                    binding.etAlamat.setError("Tidak boleh kosong");
+                }else if (binding.etNip.getText().toString().isEmpty()) {
+                    binding.etNip.requestFocus();
+                    binding.etNip.setError("Tidak boleh kosong");
+                }else if (binding.etPangkat.getText().toString().isEmpty()) {
+                    binding.etPangkat.requestFocus();
+                    binding.etPangkat.setError("Tidak boleh kosong");
+                }else if (binding.etJabatan.getText().toString().isEmpty()) {
+                    binding.etJabatan.requestFocus();
+                    binding.etJabatan.setError("Tidak boleh kosong");
+                }else {
+                    updateProfile();
+                }
             }
         });
         binding.spJenisKelamin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

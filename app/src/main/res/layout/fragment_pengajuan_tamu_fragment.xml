@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main"
+        tools:context=".ui.main.user.profile.UpdateProfileFragment">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/popsem"
+            android:id="@+id/tvRegister"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_30ssp"
+            android:text="Pengajuan Baru"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/container1"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvRegister"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_9ssp"
+                        android:text="Tujuan Bagian"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/main"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/container_spinner"
+                        android:padding="@dimen/_10sdp"
+                        android:id="@+id/spBagian"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAlasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Alasan..."
+                            android:lines="4"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_9ssp"
+                        android:text="Tanggal Kedatangan"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/main"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/container_spinner"
+                        android:padding="@dimen/_10sdp"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/main"
+                        android:id="@+id/tvTanggal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_9ssp"
+                        android:text="Jam Kedatangan"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/main"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/container_spinner"
+                        android:padding="@dimen/_10sdp"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/main"
+                        android:id="@+id/tvJam"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etJumlah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Jumlah kedatangan"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_9ssp"
+                        android:text="Upload File"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/main"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btnPilih"
+                            android:textColor="@color/main"
+                            app:backgroundTint="@color/yellow"
+                            android:text="Pilih"/>
+
+                        <EditText
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_10ssp"
+                            android:maxLength="30"
+                            android:id="@+id/etFilePath"
+                            android:layout_gravity="bottom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnUpdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Submit"
+                            android:padding="@dimen/_10sdp"
+                            app:backgroundTint="@color/main"
+                            android:layout_marginTop="@dimen/_20sdp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnBatal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Batal"
+                            android:textColor="@color/main"
+                            android:padding="@dimen/_10sdp"
+                            app:backgroundTint="@color/ligh_gray"
+                            android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+</layout>
