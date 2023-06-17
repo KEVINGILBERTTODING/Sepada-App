@@ -4,18 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import com.example.sepada.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.ResponseModel;
 import com.example.sepada.data.model.UserDetailModel;
@@ -28,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateProfileFragment extends Fragment {
+public class UpdateProfile2Fragment extends Fragment {
 
     private FragmentUpdateProfileBinding binding;
     private SharedPreferences sharedPreferences;
@@ -51,16 +49,17 @@ public class UpdateProfileFragment extends Fragment {
         adapterjk.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spJenisKelamin.setAdapter(adapterjk);
 
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         listener();
-    }
+        getDetailUser();
 
+    }
     private void listener() {
         binding.btnBatal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,10 +111,9 @@ public class UpdateProfileFragment extends Fragment {
         });
 
     }
-
     private void updateProfile() {
         showProgressBar("Loading", "Menyimpan data...", true);
-        userService.insertDetailUser(
+        userService.updateDetailUser(
                 userId, binding.etNamaInstansi.getText().toString(),jk, binding.etTelepon.getText().toString(),
                 binding.etAlamat.getText().toString(), binding.etNip.getText().toString(),
                 binding.etPangkat.getText().toString(), binding.etJabatan.getText().toString()
@@ -139,8 +137,34 @@ public class UpdateProfileFragment extends Fragment {
             }
         });
     }
+    private void getDetailUser() {
+        showProgressBar("Loading", "Memuat data...", true);
+        userService.getDetailProfile(userId).enqueue(new Callback<UserDetailModel>() {
+            @Override
+            public void onResponse(Call<UserDetailModel> call, Response<UserDetailModel> response) {
+                showProgressBar("d", "d", false);
+                if (response.isSuccessful() && response.body() != null) {
+                    binding.etNamaInstansi.setText(response.body().getNamaLengkap());
+                    binding.etAlamat.setText(response.body().getAlamat());
+                    binding.etNip.setText(response.body().getNip());
+                    binding.etTelepon.setText(response.body().getNoTelp());
+                    binding.etTelepon.setText(response.body().getNoTelp());
+                    binding.etPangkat.setText(response.body().getPangkat());
+                    binding.etJabatan.setText(response.body().getPangkat());
+                }else {
+                    binding.btnUpdate.setEnabled(false);
+                    showToast("err", "");
 
+                }
+            }
 
+            @Override
+            public void onFailure(Call<UserDetailModel> call, Throwable t) {
+                showToast("err", "Tidak ada koneksi internet");
+
+            }
+        });
+    }
     private void showProgressBar(String title, String message, boolean isLoading) {
         if (isLoading) {
             // Membuat progress dialog baru jika belum ada

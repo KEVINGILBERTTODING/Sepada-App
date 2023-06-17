@@ -49,6 +49,42 @@ public interface UserService {
             @Part MultipartBody.Part file
             );
 
+    @GET("user/getTamuByStatus")
+    Call<List<TamuModel>> getTamuByStatus(
+            @Query("id") String id,
+            @Query("status") String status
+    );
+
+    @Multipart
+    @POST("user/updatePhotoProfile")
+    Call<ResponseModel> updateProfile(
+            @PartMap Map<String, RequestBody> textDat,
+            @Part MultipartBody.Part filePart
+    );
+
+    @FormUrlEncoded
+    @POST("user/updateDetailUser")
+    Call<ResponseModel> updateDetailUser(
+            @Field("id") String id,
+            @Field("nama_lengkap") String nama_lengkap,
+            @Field("id_jenis_kelamin") String id_jenis_kelamin,
+            @Field("no_telp") String no_telp,
+            @Field("alamat") String alamat,
+            @Field("nip") String nip,
+            @Field("pangkat") String pangkat,
+            @Field("jabatan") String jabatan
+    );
+
+    @FormUrlEncoded
+    @POST("user/updateProfile")
+    Call<ResponseModel> updateProfile(
+            @Field("id") String id,
+            @Field("username") String username,
+            @Field("password") String password
+    );
+
+
+
 
 
 

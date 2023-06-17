@@ -1,5 +1,6 @@
 package com.example.sepada.data.model;
 
+import com.example.sepada.util.Constans;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -22,6 +23,8 @@ public class UserDetailModel implements Serializable {
 
     @SerializedName("alamat")
     String alamat;
+    @SerializedName("foto")
+    String foto;
 
     @SerializedName("nip")
     String nip;
@@ -47,13 +50,14 @@ public class UserDetailModel implements Serializable {
     @SerializedName("id_user_level")
     String userLevelId;
 
-    public UserDetailModel(String id, String userDetailId, String namaLengkap, String jenisKelaminId, String noTelp, String alamat, String nip, String pangkat, String jabatan, String userId, String username, String password, String email, String userLevelId) {
+    public UserDetailModel(String id,String foto, String userDetailId, String namaLengkap, String jenisKelaminId, String noTelp, String alamat, String nip, String pangkat, String jabatan, String userId, String username, String password, String email, String userLevelId) {
         this.id = id;
         this.userDetailId = userDetailId;
         this.namaLengkap = namaLengkap;
         this.jenisKelaminId = jenisKelaminId;
         this.noTelp = noTelp;
         this.alamat = alamat;
+        this.foto = foto;
         this.nip = nip;
         this.pangkat = pangkat;
         this.jabatan = jabatan;
@@ -174,5 +178,13 @@ public class UserDetailModel implements Serializable {
 
     public void setUserLevelId(String userLevelId) {
         this.userLevelId = userLevelId;
+    }
+
+    public String getFoto() {
+        return Constans.URL_PROFILE + foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

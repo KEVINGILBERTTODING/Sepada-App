@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.sepada.R;
 import com.example.sepada.ui.main.user.home.UserHomeFragment;
+import com.example.sepada.ui.main.user.profile.UserProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -28,7 +29,7 @@ public class UserMainActivity extends AppCompatActivity {
                     replace(new UserHomeFragment());
                     return true;
                 }else  if (item.getItemId() == R.id.menuProfile) {
-                    replace(new UserHomeFragment());
+                    replace(new UserProfileFragment());
                     return true;
                 }
                 return false;
