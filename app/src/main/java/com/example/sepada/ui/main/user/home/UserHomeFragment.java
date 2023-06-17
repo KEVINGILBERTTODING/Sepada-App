@@ -30,6 +30,7 @@ import com.example.sepada.ui.main.user.profile.UpdateProfileFragment;
 import com.example.sepada.ui.main.user.tamu.PengajuanTamuFragment;
 import com.example.sepada.util.Constans;
 import com.example.sepada.util.UserService;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,11 @@ public class UserHomeFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences(Constans.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getString(Constans.USER_ID, null);
         userService = ApiConfig.getClient().create(UserService.class);
+
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Semua"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Disetujui"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Menunggu"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Ditolak"));
         return binding.getRoot();
     }
 
@@ -65,7 +71,7 @@ public class UserHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listener();
-        getMyHistory();
+        getMyHistory("all");
         checkProfile();
     }
 
@@ -87,6 +93,38 @@ public class UserHomeFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frameUser, new PengajuanTamuFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    binding.rvTamu.setAdapter(null);
+                    getMyHistory("all");
+                }else if (tab.getPosition() == 1) {
+                    binding.rvTamu.setAdapter(null);
+
+                    getMyHistory("2");
+                }else if (tab.getPosition() == 2) {
+                    binding.rvTamu.setAdapter(null);
+
+                    getMyHistory("1");
+                }else if (tab.getPosition() == 3) {
+                    binding.rvTamu.setAdapter(null);
+
+                    getMyHistory("3");
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
@@ -124,9 +162,9 @@ public class UserHomeFragment extends Fragment {
         });
     }
 
-    private void getMyHistory() {
+    private void getMyHistory(String status) {
         showProgressBar("Loading", "Memuat data...", true);
-        userService.getMyCuti(userId).enqueue(new Callback<List<TamuModel>>() {
+        userService.getTamuByStatus(userId, status).enqueue(new Callback<List<TamuModel>>() {
             @Override
             public void onResponse(Call<List<TamuModel>> call, Response<List<TamuModel>> response) {
                 showProgressBar("d", "ds", false);

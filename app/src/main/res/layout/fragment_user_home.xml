@@ -51,6 +51,12 @@
                 android:textSize="@dimen/_13ssp"
                 android:textColor="@color/main"/>
 
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:id="@+id/tabLayout"
+                android:layout_height="wrap_content"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTamu"
                 android:layout_marginTop="@dimen/_10sdp"
