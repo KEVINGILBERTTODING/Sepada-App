@@ -12,5 +12,8 @@ public class Constans {
     public static final String URL_DOWNLOAD_SURAT_PERSETUJUAN = BASE_URL + "user/download_surat_persetujuan/";
     public static final String URL_PROFILE = "http://" + IP_ADDRESS + "/sepada/uploads/profile/";
 
+    public static final String URL_DOWNLOAD_REKAP_DATA= BASE_URL + "admin/downloadRekapPengajuan/";
+
+
 
 }

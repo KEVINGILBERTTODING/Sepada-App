@@ -1,14 +1,23 @@
 package com.example.sepada.ui.main.admin.tamu;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +42,7 @@ import com.example.sepada.util.UserService;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -47,7 +57,12 @@ public class TamuFragment extends Fragment {
     private GridLayoutManager gridLayoutManager;
     private List<TamuModel> tamuModelList;
     private AdminService adminService;
+    private String status;
     private PengajuanTamuAdapter pengajuanTamuAdapter;
+    private String [] opsiStatus = {
+            "Semua", "Disetujui", "Ditolak", "Diproses"
+    };
+    private Spinner spStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +70,9 @@ public class TamuFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentTamuBinding.inflate(inflater, container, false);
         adminService = ApiConfig.getClient().create(AdminService.class);
+
+
+
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Semua"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Disetujui"));
@@ -72,6 +90,8 @@ public class TamuFragment extends Fragment {
     }
 
     private void listener() {
+
+
 
 
 
@@ -116,6 +136,84 @@ public class TamuFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
                 return false;
+            }
+        });
+        binding.btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.layout_filter);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.white);
+                spStatus = dialog.findViewById(R.id.spStatus);
+                TextView tvTanggalAwal, tvTanggalAkhir;
+                tvTanggalAwal = dialog.findViewById(R.id.tvTanggalAwal);
+                tvTanggalAkhir = dialog.findViewById(R.id.tvtglAkhir);
+                Button btnDownload, btnBatal;
+                btnBatal = dialog.findViewById(R.id.btnBatal);
+                btnDownload = dialog.findViewById(R.id.btnDownload);
+                dialog.show();
+
+                ArrayAdapter statusAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, opsiStatus);
+                statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spStatus.setAdapter(statusAdapter);
+
+                spStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        status = opsiStatus[position];
+                        if (status.equals("Semua")) {
+                            status = "all";
+                        }else if (status.equals("Disetujui")) {
+                            status = "2";
+                        }else if (status.equals("Ditolak")) {
+                            status = "3";
+                        }else if (status.equals("Diproses")) {
+                            status = "1";
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                tvTanggalAwal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getDatePicker(tvTanggalAwal);
+                    }
+                });
+
+                tvTanggalAkhir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getDatePicker(tvTanggalAkhir);
+                    }
+                });
+
+                btnBatal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                btnDownload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (tvTanggalAkhir.getText().toString().isEmpty()) {
+                            tvTanggalAkhir.requestFocus();
+                        }else if (tvTanggalAkhir.getText().toString().isEmpty()) {
+                            tvTanggalAkhir.requestFocus();
+                        }else {
+                            String url = Constans.URL_DOWNLOAD_REKAP_DATA + status + "/" + tvTanggalAwal.getText().toString() +
+                                    "/" + tvTanggalAkhir.getText().toString();
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(url));
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
         });
 
@@ -193,6 +291,30 @@ public class TamuFragment extends Fragment {
         }else {
             Toasty.error(getContext(), text, Toasty.LENGTH_SHORT).show();
         }
+    }
+
+    private void getDatePicker(TextView tvDate) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String dateFormatted, monthFormatted;
+                if (month < 10) {
+                    monthFormatted = String.format("%02d", month + 1);
+                }else {
+                    monthFormatted = String.valueOf(month + 1);
+                }
+
+                if (dayOfMonth < 10) {
+                    dateFormatted = String.format("%02d", dayOfMonth);
+                }else {
+                    dateFormatted = String.valueOf(dayOfMonth);
+                }
+
+                tvDate.setText(year + "-" + monthFormatted + "-" + dateFormatted);
+            }
+        });
+        datePickerDialog.show();
     }
 
 
