@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.admin.home.AdminHomeFragment">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hai,"
+                    android:fontFamily="@font/popsem"
+                    android:textSize="@dimen/_25ssp"
+                    android:textColor="@color/main"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selamat datang"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_11ssp"
+                    android:layout_marginTop="@dimen/_minus5sdp"
+                    android:textColor="@color/gray"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_120sdp"
+                    android:src="@drawable/banner"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menu Admin"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/popsem"
+                    android:textSize="@dimen/_12ssp"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="@dimen/_5sdp"
+                    android:id="@+id/cvMenuTamu"
+                    app:cardBackgroundColor="@color/ligh_gray"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv1"
+                            app:contentPadding="@dimen/_10sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            android:layout_width="@dimen/_60sdp"
+                            app:cardBackgroundColor="@color/main"
+                            android:layout_height="match_parent"
+                            android:background="@color/main">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:src="@drawable/ic_person3"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_toRightOf="@id/cv1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_20ssp"
+                                android:id="@+id/tvTotalPengajuan"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Daftar Tamu"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_12ssp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Masuk untuk mengelola data tamu yang masuk"
+                                android:fontFamily="@font/popmed"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_10ssp"/>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/cvMenuUser"
+                    app:cardBackgroundColor="@color/ligh_gray"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv2"
+                            app:contentPadding="@dimen/_10sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            android:layout_width="@dimen/_60sdp"
+                            app:cardBackgroundColor="@color/main"
+                            android:layout_height="match_parent"
+                            android:background="@color/main">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:src="@drawable/ic_gorup2"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_toRightOf="@id/cv2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_20ssp"
+                                android:id="@+id/tvTotalUser"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Daftar User"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_12ssp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Masuk untuk mengelola data user yang terdaftar"
+                                android:fontFamily="@font/popmed"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_10ssp"/>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+    </RelativeLayout>
+</layout>
