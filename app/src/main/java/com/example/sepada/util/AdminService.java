@@ -32,5 +32,11 @@ public interface AdminService {
             @Field("alasan") String alasan
     );
 
+    @FormUrlEncoded
+    @POST("admin/deletePengajuan")
+    Call<ResponseModel> deletePengajuan(
+            @Field("id") String id
+    );
+
 
 }

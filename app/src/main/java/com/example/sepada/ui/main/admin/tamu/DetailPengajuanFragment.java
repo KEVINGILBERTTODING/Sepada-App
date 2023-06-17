@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -222,6 +223,27 @@ public class DetailPengajuanFragment extends Fragment {
                         }
                     }
                 });
+
+            }
+        });
+        binding.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Konfirmasi");
+                alert.setMessage("Apakah anda yakin ingin menghapus data ini?");
+                alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete();
+                    }
+                }).setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+
             }
         });
 
@@ -304,6 +326,30 @@ public class DetailPengajuanFragment extends Fragment {
         }else {
             Toasty.error(getContext(), text, Toasty.LENGTH_SHORT).show();
         }
+    }
+
+    private void delete() {
+        showProgressBar("Loading", "Menghapus data...", true);
+        adminService.deletePengajuan(id).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                showProgressBar("dd", "Dd", false);
+                if (response.isSuccessful() && response.body().getCode() == 200) {
+                    showToast("success", "Berhasill menghapus data");
+                    getActivity().onBackPressed();
+
+                }else {
+                    showToast("err", "Terjadi kesalahan");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                showProgressBar("d", "d", false);
+                showToast("err", "Tidak ada koneksi internet");
+
+            }
+        });
     }
 
 

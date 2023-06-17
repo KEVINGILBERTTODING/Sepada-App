@@ -102,4 +102,6 @@ public class DetailPengajuanFragment extends Fragment {
         });
 
     }
+
+
 }
