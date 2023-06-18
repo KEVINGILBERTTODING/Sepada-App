@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(Constans.SHARED_PREF_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        if (sharedPreferences.getBoolean("logged_in", false)) {
+        if (sharedPreferences.getBoolean("login", false) == true) {
             if (sharedPreferences.getString(Constans.ROLE, null).equals("1")) {
                 startActivity(new Intent(LoginActivity.this, UserMainActivity.class));
                 finish();
@@ -109,31 +109,31 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful() && response.body().getCode() == 200) {
                     if (response.body().getRole().equals("1")) {
-                        editor.putBoolean("logged_in", true);
+                        editor.putBoolean("login", true);
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.commit();
+                        editor.apply();
                         startActivity(new Intent(LoginActivity.this, UserMainActivity.class));
                         finish();
 
                     }else  if (response.body().getRole().equals("2")) {
 
-                        editor.putBoolean("logged_in", true);
+                        editor.putBoolean("login", true);
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.commit();
+                        editor.apply();
                         startActivity(new Intent(LoginActivity.this, AdminMainActivty.class));
                         finish();
 
 
                     }else if (response.body().getRole().equals("3")) {
-                        editor.putBoolean("logged_in", true);
+                        editor.putBoolean("login", true);
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.commit();
+                        editor.apply();
                         startActivity(new Intent(LoginActivity.this, SuperAdminMainActivtiy.class));
                         finish();
                     }
