@@ -16,7 +16,7 @@ import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentUsersBinding;
-import com.example.sepada.ui.main.admin.adapter.user.UsersAdapter;
+import com.example.sepada.ui.main.superadmin.adapter.user.UsersAdapter;
 import com.example.sepada.ui.main.admin.users.AddUsers;
 import com.example.sepada.util.AdminService;
 
