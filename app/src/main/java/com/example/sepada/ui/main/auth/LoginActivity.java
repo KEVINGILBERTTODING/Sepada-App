@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.apply();
+                        editor.commit();
                         startActivity(new Intent(LoginActivity.this, UserMainActivity.class));
                         finish();
 
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.apply();
+                        editor.commit();
                         startActivity(new Intent(LoginActivity.this, AdminMainActivty.class));
                         finish();
 
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(Constans.USER_ID, response.body().getUserId());
                         editor.putString(Constans.ROLE, response.body().getRole());
                         editor.putString(Constans.USERNAME, response.body().getUsername());
-                        editor.apply();
+                        editor.commit();
                         startActivity(new Intent(LoginActivity.this, SuperAdminMainActivtiy.class));
                         finish();
                     }
