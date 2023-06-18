@@ -1,24 +1,24 @@
-package com.example.sepada.ui.main.admin.home;
+package com.example.sepada.ui.main.superadmin.home;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentAdminHomeBinding;
-import com.example.sepada.databinding.FragmentUserProfileBinding;
-import com.example.sepada.ui.main.admin.tamu.TamuFragment;
+import com.example.sepada.databinding.FragmentSuperAdminHomeBinding;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
+import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
 import com.example.sepada.util.AdminService;
 
 import java.util.List;
@@ -28,9 +28,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminHomeFragment extends Fragment {
+public class SuperAdminHomeFragment extends Fragment {
 
-    private FragmentAdminHomeBinding binding;
+    private FragmentSuperAdminHomeBinding binding;
     private AdminService adminService;
     private AlertDialog progressDialog;
 
@@ -40,7 +40,7 @@ public class AdminHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentAdminHomeBinding.inflate(inflater, container, false);
+        binding = FragmentSuperAdminHomeBinding.inflate(inflater, container, false);
         adminService = ApiConfig.getClient().create(AdminService.class);
 
         return binding.getRoot();
@@ -53,7 +53,8 @@ public class AdminHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listener();
         getAllPengajuan();
-        getAllUsers();
+        getAllUsers(1, binding.tvTotalUser);
+        getAllUsers(2, binding.tvTotalAdmin);
     }
 
     private void listener() {
@@ -69,29 +70,6 @@ public class AdminHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new UsersFragment());
-            }
-        });
-    }
-
-    private void getAllUsers() {
-        showProgressBar("Loading", "Memuat data...", true);
-        adminService.getAllUsersByRole(1).enqueue(new Callback<List<UserDetailModel>>() {
-            @Override
-            public void onResponse(Call<List<UserDetailModel>> call, Response<List<UserDetailModel>> response) {
-                showProgressBar("s", "s", false);
-                if (response.isSuccessful() && response.body().size() > 0) {
-                    binding.tvTotalUser.setText(String.valueOf(response.body().size()));
-
-                }else {
-                    binding.tvTotalUser.setText("0");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<UserDetailModel>> call, Throwable t) {
-                showProgressBar("s", "s", false);
-                showToast("err", "Tidak ada koneksi internet");
-
             }
         });
     }
@@ -119,7 +97,29 @@ public class AdminHomeFragment extends Fragment {
         });
     }
 
+    private void getAllUsers(Integer role, TextView tvTotal) {
+        showProgressBar("Loading", "Memuat data...", true);
+        adminService.getAllUsersByRole(role).enqueue(new Callback<List<UserDetailModel>>() {
+            @Override
+            public void onResponse(Call<List<UserDetailModel>> call, Response<List<UserDetailModel>> response) {
+                showProgressBar("s", "s", false);
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    tvTotal.setText(String.valueOf(response.body().size()));
 
+                }else {
+                    tvTotal.setText("0");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserDetailModel>> call, Throwable t) {
+                showProgressBar("s", "s", false);
+                showToast("err", "Tidak ada koneksi internet");
+                tvTotal.setText("0");
+
+            }
+        });
+    }
 
     private void showProgressBar(String title, String message, boolean isLoading) {
         if (isLoading) {
@@ -149,6 +149,6 @@ public class AdminHomeFragment extends Fragment {
 
     private void replace(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameAdmin, fragment).addToBackStack(null).commit();
+                .replace(R.id.frameSuperAdmin, fragment).addToBackStack(null).commit();
     }
 }

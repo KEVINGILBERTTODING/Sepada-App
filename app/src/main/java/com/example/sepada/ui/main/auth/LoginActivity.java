@@ -20,6 +20,7 @@ import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.AuthModel;
 import com.example.sepada.data.model.ResponseModel;
 import com.example.sepada.ui.main.admin.AdminMainActivty;
+import com.example.sepada.ui.main.superadmin.SuperAdminMainActivtiy;
 import com.example.sepada.ui.main.user.UserMainActivity;
 import com.example.sepada.util.AuthService;
 import com.example.sepada.util.Constans;
@@ -56,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }else if (sharedPreferences.getString(Constans.ROLE, null).equals("2")) {
                 startActivity(new Intent(LoginActivity.this, AdminMainActivty.class));
+                finish();
+            }else if (sharedPreferences.getString(Constans.ROLE, null).equals("3")) {
+                startActivity(new Intent(LoginActivity.this, SuperAdminMainActivtiy.class));
                 finish();
             }
 
@@ -125,7 +129,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     }else if (response.body().getRole().equals("3")) {
-                        showToast("success",  "super admin");
+                        editor.putBoolean("logged_in", true);
+                        editor.putString(Constans.USER_ID, response.body().getUserId());
+                        editor.putString(Constans.ROLE, response.body().getRole());
+                        editor.putString(Constans.USERNAME, response.body().getUsername());
+                        editor.apply();
+                        startActivity(new Intent(LoginActivity.this, SuperAdminMainActivtiy.class));
+                        finish();
                     }
 
 

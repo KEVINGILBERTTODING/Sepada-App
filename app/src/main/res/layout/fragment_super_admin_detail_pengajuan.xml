@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main"
+        tools:context=".ui.main.user.profile.UpdateProfileFragment">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/popsem"
+            android:id="@+id/tvRegister"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_30ssp"
+            android:text="Detail"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/container1"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvRegister"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+                            android:id="@+id/etNamInstansi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Nama Instansi"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+
+                            android:id="@+id/etTujuanBagian"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Tujuan Bagian"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+
+                            android:id="@+id/etTglKedatangan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Tanggal Kedatangan"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+
+                            android:id="@+id/etWaktuKedatangan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Waktu Kedatangan"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+
+                            android:id="@+id/etJumlah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Jumlah Rombongan"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+
+                            android:id="@+id/etAlasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Alasan..."
+                            android:lines="4"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:enabled="false"
+                            android:id="@+id/etAlasanverifikasi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Alasan Verifikasi"
+                            android:lines="4"
+                            android:gravity="start"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Surat Lampiran"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/main"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Download surat lampiran"
+                        app:icon="@drawable/baseline_download_24"
+                        app:backgroundTint="@color/green_tosca"
+                        android:id="@+id/downloadSuratLampiran"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Surat Persetujuan"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/main"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="Download Surat Persetujuan"
+                        app:icon="@drawable/baseline_download_24"
+                        android:padding="@dimen/_10sdp"
+                        app:backgroundTint="@color/green_tosca"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@color/main"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aksi"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/main"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSetuju"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Setuju"
+                            app:icon="@drawable/ic_checklist"
+                            android:padding="@dimen/_10sdp"
+                            app:backgroundTint="@color/main"
+                            android:layout_marginTop="@dimen/_20sdp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnTolak"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Tolak"
+                            app:icon="@drawable/baseline_error_outline_24"
+                            android:padding="@dimen/_10sdp"
+                            app:backgroundTint="@color/red"
+                            android:layout_marginTop="@dimen/_20sdp"/>
+
+
+
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnKembali"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Kembali"
+                            android:textColor="@color/main"
+                            android:padding="@dimen/_10sdp"
+                            app:backgroundTint="@color/ligh_gray"
+                            android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</layout>
