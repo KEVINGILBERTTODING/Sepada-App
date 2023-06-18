@@ -19,7 +19,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:text="Pengaturan akun"
+                android:text="Ubah data admin"
                 android:id="@+id/tvStatus"
                 android:fontFamily="@font/popsem"
                 android:layout_gravity="center_horizontal"
@@ -58,6 +58,31 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@color/black"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popmed"
+                    android:hint="Email"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -69,6 +94,7 @@
                 app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                 app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:passwordToggleEnabled="true"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -93,6 +119,14 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 app:backgroundTint="@color/main"
                 android:text="Simpan"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:backgroundTint="@color/red"
+                android:text="Hapus admin"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBatal"

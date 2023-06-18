@@ -1,27 +1,26 @@
-package com.example.sepada.ui.main.superadmin.home;
+package com.example.sepada.ui.main.superadmin.user;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
-import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
-import com.example.sepada.databinding.FragmentAdminHomeBinding;
-import com.example.sepada.databinding.FragmentSuperAdminHomeBinding;
-import com.example.sepada.ui.main.admin.users.UsersFragment;
-import com.example.sepada.ui.main.superadmin.admin.AdminFragment;
-import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
+import com.example.sepada.databinding.FragmentUsersBinding;
+import com.example.sepada.ui.main.admin.adapter.user.UsersAdapter;
+import com.example.sepada.ui.main.admin.users.AddUsers;
 import com.example.sepada.util.AdminService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -29,105 +28,105 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SuperAdminHomeFragment extends Fragment {
 
-    private FragmentSuperAdminHomeBinding binding;
-    private AdminService adminService;
+public class UsersFragment extends Fragment {
+    private FragmentUsersBinding binding;
     private AlertDialog progressDialog;
-
-
-
+    private List<UserDetailModel> userDetailModelList;
+    private LinearLayoutManager linearLayoutManager;
+    private AdminService adminService;
+    private UsersAdapter usersAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentSuperAdminHomeBinding.inflate(inflater, container, false);
+        binding = FragmentUsersBinding.inflate(inflater, container, false);
         adminService = ApiConfig.getClient().create(AdminService.class);
 
         return binding.getRoot();
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listener();
-        getAllPengajuan();
-        getAllUsers(1, binding.tvTotalUser);
-        getAllUsers(2, binding.tvTotalAdmin);
+        getAllUsers(1);
+
     }
 
     private void listener() {
-        binding.cvMenuTamu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replace(new TamuFragment());
 
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
             }
         });
 
-        binding.cvMenuUser.setOnClickListener(new View.OnClickListener() {
+        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replace(new UsersFragment());
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameSuperAdmin, new AddUsers()).addToBackStack(null).commit();
             }
         });
 
-        binding.cvMenuAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replace(new AdminFragment());
-            }
-        });
+
     }
 
-    private void getAllPengajuan() {
-        showProgressBar("Loading", "Memuat data...", true);
-        adminService.getAllPengajuan().enqueue(new Callback<List<TamuModel>>() {
-            @Override
-            public void onResponse(Call<List<TamuModel>> call, Response<List<TamuModel>> response) {
-                showProgressBar("sd", "ds", false);
-                if (response.isSuccessful() && response.body().size() > 0) {
-                    binding.tvTotalPengajuan.setText(String.valueOf(response.body().size()));
-                }else {
-                    binding.tvTotalPengajuan.setText("0");
-                }
 
-            }
-
-            @Override
-            public void onFailure(Call<List<TamuModel>> call, Throwable t) {
-                showProgressBar("D", "D", false);
-                showToast("err", "Tidak ada koneksi internt");
-
-            }
-        });
-    }
-
-    private void getAllUsers(Integer role, TextView tvTotal) {
+    private void getAllUsers(Integer role) {
         showProgressBar("Loading", "Memuat data...", true);
         adminService.getAllUsersByRole(role).enqueue(new Callback<List<UserDetailModel>>() {
             @Override
             public void onResponse(Call<List<UserDetailModel>> call, Response<List<UserDetailModel>> response) {
-                showProgressBar("s", "s", false);
+                showProgressBar("d", "ds", false);
                 if (response.isSuccessful() && response.body().size() > 0) {
-                    tvTotal.setText(String.valueOf(response.body().size()));
+                    userDetailModelList = response.body();
+                    usersAdapter = new UsersAdapter(getContext(), userDetailModelList);
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    binding.rvUsers.setLayoutManager(linearLayoutManager);
+                    binding.rvUsers.setAdapter(usersAdapter);
+                    binding.rvUsers.setHasFixedSize(true);
 
                 }else {
-                    tvTotal.setText("0");
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<UserDetailModel>> call, Throwable t) {
-                showProgressBar("s", "s", false);
+                showProgressBar("d", "ds", false);
                 showToast("err", "Tidak ada koneksi internet");
-                tvTotal.setText("0");
-
             }
         });
+
+
     }
+
+    private void filter(String text) {
+        ArrayList<UserDetailModel> filterList = new ArrayList<>();
+        for (UserDetailModel item : userDetailModelList) {
+            if (item.getUsername().toLowerCase().contains(text.toLowerCase())) {
+                filterList.add(item);
+            }
+
+            usersAdapter.filter(filterList);
+            if (filterList.isEmpty()) {
+
+            }else {
+                usersAdapter.filter(filterList);
+            }
+        }
+    }
+
 
     private void showProgressBar(String title, String message, boolean isLoading) {
         if (isLoading) {
@@ -155,8 +154,5 @@ public class SuperAdminHomeFragment extends Fragment {
         }
     }
 
-    private void replace(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameSuperAdmin, fragment).addToBackStack(null).commit();
-    }
+
 }

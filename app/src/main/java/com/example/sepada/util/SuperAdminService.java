@@ -15,4 +15,31 @@ public interface SuperAdminService {
             @Field("id_tamu") String idTamu,
             @Field("alasan") String alasan
     );
+
+    @FormUrlEncoded
+    @POST("superadmin/addAdmin")
+    Call<ResponseModel> addAdmin(
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("email") String email
+    );
+
+    @FormUrlEncoded
+    @POST("superadmin/updateAdmin")
+    Call<ResponseModel> updateAdmin(
+            @Field("id") String id,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("email") String email
+    );
+
+    @FormUrlEncoded
+    @POST("superadmin/deleteAdmin")
+    Call<ResponseModel> deleteAdmin(
+            @Field("id") String id
+    );
+
+
+
+
 }
