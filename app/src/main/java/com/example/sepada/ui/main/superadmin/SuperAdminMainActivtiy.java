@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import com.example.sepada.R;
 import com.example.sepada.ui.main.admin.home.AdminHomeFragment;
 import com.example.sepada.ui.main.admin.profile.AdminProfileFragment;
-import com.example.sepada.ui.main.admin.tamu.TamuFragment;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.ui.main.superadmin.home.SuperAdminHomeFragment;
+import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
