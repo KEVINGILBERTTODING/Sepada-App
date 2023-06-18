@@ -12,6 +12,7 @@ import com.example.sepada.ui.main.admin.home.AdminHomeFragment;
 import com.example.sepada.ui.main.admin.profile.AdminProfileFragment;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.ui.main.superadmin.home.SuperAdminHomeFragment;
+import com.example.sepada.ui.main.superadmin.profile.SuperAdminProfileFragment;
 import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,7 +45,7 @@ public class SuperAdminMainActivtiy extends AppCompatActivity {
                     replace(new UsersFragment());
                     return true;
                 } else if (item.getItemId() == R.id.menuProfile) {
-                    replace(new AdminProfileFragment());
+                    replace(new SuperAdminProfileFragment());
                     return true;
                 }
                 return false;

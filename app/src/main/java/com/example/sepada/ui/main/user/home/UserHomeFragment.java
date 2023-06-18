@@ -76,18 +76,7 @@ public class UserHomeFragment extends Fragment {
     }
 
     private void listener() {
-        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });
         binding.btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +97,6 @@ public class UserHomeFragment extends Fragment {
                     getMyHistory("2");
                 }else if (tab.getPosition() == 2) {
                     binding.rvTamu.setAdapter(null);
-
                     getMyHistory("1");
                 }else if (tab.getPosition() == 3) {
                     binding.rvTamu.setAdapter(null);
@@ -128,6 +116,23 @@ public class UserHomeFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
     }
 
     private void checkProfile() {
@@ -175,6 +180,7 @@ public class UserHomeFragment extends Fragment {
                     binding.rvTamu.setLayoutManager(gridLayoutManager);
                     binding.rvTamu.setAdapter(riwayatTamuAdapter);
                     binding.rvTamu.setHasFixedSize(true);
+                    binding.tvEmpty.setVisibility(View.GONE);
 
                 }else {
                     binding.tvEmpty.setVisibility(View.VISIBLE);

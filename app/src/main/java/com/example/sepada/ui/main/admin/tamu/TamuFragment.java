@@ -223,6 +223,8 @@ public class TamuFragment extends Fragment {
                     binding.rvTamu.setLayoutManager(gridLayoutManager);
                     binding.rvTamu.setAdapter(pengajuanTamuAdapter);
                     binding.rvTamu.setHasFixedSize(true);
+                    binding.tvEmpty.setVisibility(View.GONE);
+
 
                 }else {
                     binding.tvEmpty.setVisibility(View.VISIBLE);
