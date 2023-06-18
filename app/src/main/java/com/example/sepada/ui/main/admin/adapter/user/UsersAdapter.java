@@ -1,16 +1,20 @@
 package com.example.sepada.ui.main.admin.adapter.user;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sepada.R;
 import com.example.sepada.data.model.UserDetailModel;
+import com.example.sepada.ui.main.admin.users.UpdateUsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +52,32 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvUsername, tvInstansi;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvInstansi = itemView.findViewById(R.id.tvInstansi);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Fragment fragment = new UpdateUsers();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", userDetailModelList.get(getAdapterPosition()).getUserId());
+            bundle.putString("username", userDetailModelList.get(getAdapterPosition()).getUsername());
+            bundle.putString("email", userDetailModelList.get(getAdapterPosition()).getEmail());
+            bundle.putString("password", userDetailModelList.get(getAdapterPosition()).getPassword());
+            bundle.putString("nama_instansi", userDetailModelList.get(getAdapterPosition()).getNamaLengkap());
+            bundle.putString("telepon", userDetailModelList.get(getAdapterPosition()).getNoTelp());
+            bundle.putString("alamat_instansi", userDetailModelList.get(getAdapterPosition()).getAlamat());
+            fragment.setArguments(bundle);
+            ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameAdmin, fragment).addToBackStack(null)
+                    .commit();
+
+
         }
     }
 }

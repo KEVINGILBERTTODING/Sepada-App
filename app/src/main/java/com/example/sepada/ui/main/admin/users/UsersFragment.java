@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.airbnb.lottie.L;
+import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentUsersBinding;
@@ -71,6 +72,14 @@ public class UsersFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
                 return false;
+            }
+        });
+
+        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameAdmin, new AddUsers()).addToBackStack(null).commit();
             }
         });
 

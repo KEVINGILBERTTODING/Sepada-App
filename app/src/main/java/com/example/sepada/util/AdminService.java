@@ -44,5 +44,41 @@ public interface AdminService {
             @Query("role") Integer role
     );
 
+    @FormUrlEncoded
+    @POST("admin/addUser")
+    Call<ResponseModel> addUser(
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("email") String email,
+            @Field("id_jenis_kelamin") Integer id_jenis_kelamin,
+            @Field("nama_lengkap") String nama_lengkap,
+            @Field("no_telp") String no_telp,
+            @Field("alamat") String alamat
+
+    );
+
+    @FormUrlEncoded
+    @POST("admin/updateUser")
+    Call<ResponseModel> updateUser(
+            @Field("id") String id,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("email") String email,
+            @Field("id_jenis_kelamin") Integer id_jenis_kelamin,
+            @Field("nama_lengkap") String nama_lengkap,
+            @Field("no_telp") String no_telp,
+            @Field("alamat") String alamat
+
+    );
+
+    @FormUrlEncoded
+    @POST("admin/deleteUser")
+    Call<ResponseModel> deleteUser(
+            @Field("id") String id
+    );
+
+
+
+
 
 }
