@@ -1,4 +1,4 @@
-package com.example.sepada.ui.main.admin.adapter;
+package com.example.sepada.ui.main.admin.adapter.tamu;
 
 import android.content.Context;
 import android.os.Bundle;

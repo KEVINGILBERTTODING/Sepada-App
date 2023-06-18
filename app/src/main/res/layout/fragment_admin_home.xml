@@ -47,7 +47,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/_5sdp"
+                    app:contentPadding="@dimen/_10sdp"
                     android:id="@+id/cvMenuTamu"
                     app:cardBackgroundColor="@color/ligh_gray"
                     app:cardCornerRadius="@dimen/_10sdp"
@@ -57,6 +57,7 @@
                         android:layout_height="match_parent">
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cv1"
+                            app:cardElevation="0dp"
                             app:contentPadding="@dimen/_10sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
                             android:layout_width="@dimen/_60sdp"
@@ -94,7 +95,7 @@
                                 android:text="Daftar Tamu"
                                 android:fontFamily="@font/popsem"
                                 android:textColor="@color/main"
-                                android:textSize="@dimen/_12ssp"/>
+                                android:textSize="@dimen/_11ssp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -112,7 +113,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/_5sdp"
+                    app:contentPadding="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:id="@+id/cvMenuUser"
                     app:cardBackgroundColor="@color/ligh_gray"
@@ -125,6 +126,7 @@
                             android:id="@+id/cv2"
                             app:contentPadding="@dimen/_10sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
                             android:layout_width="@dimen/_60sdp"
                             app:cardBackgroundColor="@color/main"
                             android:layout_height="match_parent"
@@ -160,7 +162,7 @@
                                 android:text="Daftar User"
                                 android:fontFamily="@font/popsem"
                                 android:textColor="@color/main"
-                                android:textSize="@dimen/_12ssp"/>
+                                android:textSize="@dimen/_11ssp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"

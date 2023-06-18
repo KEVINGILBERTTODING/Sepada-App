@@ -2,6 +2,7 @@ package com.example.sepada.util;
 
 import com.example.sepada.data.model.ResponseModel;
 import com.example.sepada.data.model.TamuModel;
+import com.example.sepada.data.model.UserDetailModel;
 
 import java.util.List;
 
@@ -36,6 +37,11 @@ public interface AdminService {
     @POST("admin/deletePengajuan")
     Call<ResponseModel> deletePengajuan(
             @Field("id") String id
+    );
+
+    @GET("admin/getAllUsersByRole")
+    Call<List<UserDetailModel>> getAllUsersByRole(
+            @Query("role") Integer role
     );
 
 
