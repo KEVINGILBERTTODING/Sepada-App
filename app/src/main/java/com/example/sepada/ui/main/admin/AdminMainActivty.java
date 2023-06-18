@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 import com.example.sepada.R;
 import com.example.sepada.ui.main.admin.home.AdminHomeFragment;
+import com.example.sepada.ui.main.admin.profile.AdminProfileFragment;
+import com.example.sepada.ui.main.admin.tamu.TamuFragment;
+import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.ui.main.user.home.UserHomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -33,6 +36,15 @@ public class AdminMainActivty extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.menuHome) {
                     replace(new AdminHomeFragment());
+                    return true;
+                }else if (item.getItemId() == R.id.menuTamu) {
+                    replace(new TamuFragment());
+                    return true;
+                }else if (item.getItemId() == R.id.menuUser) {
+                    replace(new UsersFragment());
+                    return true;
+                }else if (item.getItemId() == R.id.menuProfile) {
+                    replace(new AdminProfileFragment());
                     return true;
                 }
                 return false;
