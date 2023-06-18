@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
@@ -25,6 +26,7 @@ public class RegisterActivtiy extends AppCompatActivity {
     private Button btnRegister;
     private AuthService authService;
     private AlertDialog progressDialog;
+    private TextView tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class RegisterActivtiy extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etPassKonfir = findViewById(R.id.etPassKonfirmasi);
+        tvLogin = findViewById(R.id.tvLogin);
         authService = ApiConfig.getClient().create(AuthService.class);
         listener();
     }
@@ -65,6 +68,14 @@ public class RegisterActivtiy extends AppCompatActivity {
 
             }
         });
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivtiy.this,  LoginActivity.class));
+                finish();
+            }
+        });
+
 
     }
 

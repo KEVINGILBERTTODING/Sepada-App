@@ -154,7 +154,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Belum memiliki akun? "
+                android:text="Telah memiliki akun? "
                 android:fontFamily="@font/popmed"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_10ssp"/>
@@ -162,7 +162,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daftar"
+                android:text="Masuk"
+                android:id="@+id/tvLogin"
                 android:fontFamily="@font/popsem"
                 android:textColor="@color/main"
                 android:textSize="@dimen/_10ssp"/>
