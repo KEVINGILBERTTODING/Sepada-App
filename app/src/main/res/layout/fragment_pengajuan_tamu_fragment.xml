@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/popmed"
-                            android:hint="Jumlah kedatangan"
+                            android:hint="Jumlah tamu"
                             android:inputType="number"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp">

@@ -249,6 +249,75 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    android:id="@+id/cvMenuDivisi"
+                    app:cardBackgroundColor="@color/ligh_gray"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv4"
+                            app:contentPadding="@dimen/_10sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
+                            android:layout_width="@dimen/_60sdp"
+                            app:cardBackgroundColor="@color/main"
+                            android:layout_height="match_parent"
+                            android:background="@color/main">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:src="@drawable/ic_admini"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_toRightOf="@id/cv4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_20ssp"
+                                android:id="@+id/tvTotalDivisi"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Daftar Divisi"
+                                android:fontFamily="@font/popsem"
+                                android:textColor="@color/main"
+                                android:textSize="@dimen/_11ssp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Masuk untuk mengelola data divisi"
+                                android:fontFamily="@font/popmed"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_10ssp"/>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

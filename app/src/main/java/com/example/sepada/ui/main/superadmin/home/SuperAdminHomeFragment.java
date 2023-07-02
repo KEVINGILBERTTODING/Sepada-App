@@ -13,14 +13,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
+import com.example.sepada.data.model.DivisiModel;
 import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentAdminHomeBinding;
 import com.example.sepada.databinding.FragmentSuperAdminHomeBinding;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.ui.main.superadmin.admin.AdminFragment;
+import com.example.sepada.ui.main.superadmin.divisi.DivisiFragment;
 import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
 import com.example.sepada.util.AdminService;
+import com.example.sepada.util.SuperAdminService;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class SuperAdminHomeFragment extends Fragment {
 
     private FragmentSuperAdminHomeBinding binding;
     private AdminService adminService;
+    private SuperAdminService superAdminService;
     private AlertDialog progressDialog;
 
 
@@ -43,6 +47,7 @@ public class SuperAdminHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSuperAdminHomeBinding.inflate(inflater, container, false);
         adminService = ApiConfig.getClient().create(AdminService.class);
+        superAdminService = ApiConfig.getClient().create(SuperAdminService.class);
 
         return binding.getRoot();
 
@@ -56,6 +61,7 @@ public class SuperAdminHomeFragment extends Fragment {
         getAllPengajuan();
         getAllUsers(1, binding.tvTotalUser);
         getAllUsers(2, binding.tvTotalAdmin);
+        getAllDivisi();
     }
 
     private void listener() {
@@ -78,6 +84,13 @@ public class SuperAdminHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new AdminFragment());
+            }
+        });
+
+        binding.cvMenuDivisi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DivisiFragment());
             }
         });
     }
@@ -128,6 +141,32 @@ public class SuperAdminHomeFragment extends Fragment {
             }
         });
     }
+
+    private void getAllDivisi(){
+        showProgressBar("Loading", "Memuat data...", true);
+        superAdminService.getAllDivisi().enqueue(new Callback<List<DivisiModel>>() {
+            @Override
+            public void onResponse(Call<List<DivisiModel>> call, Response<List<DivisiModel>> response) {
+                showProgressBar("s", "s", false);
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    binding.tvTotalDivisi.setText(String.valueOf(response.body().size()));
+                }else {
+                    binding.tvTotalDivisi.setText("0");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<DivisiModel>> call, Throwable t) {
+                showProgressBar("s", "s", false);
+                showToast("err", "Tidak ada koneksi internet");
+
+
+            }
+        });
+    }
+
+
 
     private void showProgressBar(String title, String message, boolean isLoading) {
         if (isLoading) {

@@ -1,10 +1,14 @@
 package com.example.sepada.util;
 
+import com.example.sepada.data.model.DivisiModel;
 import com.example.sepada.data.model.ResponseModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface SuperAdminService {
@@ -38,6 +42,19 @@ public interface SuperAdminService {
     Call<ResponseModel> deleteAdmin(
             @Field("id") String id
     );
+
+    @GET("superadmin/getalldivisi")
+    Call<List<DivisiModel>> getAllDivisi();
+
+
+    @FormUrlEncoded
+    @POST("superadmin/insertDivisi")
+    Call<ResponseModel> insertDivisi(
+            @Field("nama_divisi") String namaDivisi
+    );
+
+
+
 
 
 
