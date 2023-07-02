@@ -52,6 +52,18 @@ public interface SuperAdminService {
     Call<ResponseModel> insertDivisi(
             @Field("nama_divisi") String namaDivisi
     );
+    @FormUrlEncoded
+    @POST("superadmin/deletedivisi")
+    Call<ResponseModel> deleteDivisi(
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("superadmin/updateDivisi")
+    Call<ResponseModel> updateDivisi(
+            @Field("nama_divisi") String namaDivisi,
+            @Field("id") String id
+    );
 
 
 

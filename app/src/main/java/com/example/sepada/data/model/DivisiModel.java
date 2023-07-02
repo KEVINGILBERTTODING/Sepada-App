@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class DivisiModel implements Serializable {
+    @SerializedName("divisi_id")
+    private String id;
     @SerializedName("nama_divisi")
     private String namaDivisi;
     @SerializedName("created_at")
@@ -12,10 +14,19 @@ public class DivisiModel implements Serializable {
     @SerializedName("updated_at")
     private String updatedAt;
 
-    public DivisiModel(String namaDivisi, String createdAt, String updatedAt) {
+    public DivisiModel(String id, String namaDivisi, String createdAt, String updatedAt) {
+        this.id = id;
         this.namaDivisi = namaDivisi;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNamaDivisi() {
