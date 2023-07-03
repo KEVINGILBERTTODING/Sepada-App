@@ -72,8 +72,10 @@ public class TamuModel implements Serializable {
     private String jabatan;
     @SerializedName("file")
     private String file;
+    @SerializedName("nama_anggota")
+    private String namaAnggota;
 
-    public TamuModel(String idTamu, String file, String idUser, String tujuan, String alasan, String tanggal, String tglDiajukan, String jam, String jumlah, String idStatus, String alasanVerifikasi, String username, String password, String email, String idUserLevel, String idUserDetail, String namaLengkap, String idJenisKelamin, String noTelp, String alamat, String nip, String pangkat, String jabatan) {
+    public TamuModel(String idTamu, String namaAnggota, String file, String idUser, String tujuan, String alasan, String tanggal, String tglDiajukan, String jam, String jumlah, String idStatus, String alasanVerifikasi, String username, String password, String email, String idUserLevel, String idUserDetail, String namaLengkap, String idJenisKelamin, String noTelp, String alamat, String nip, String pangkat, String jabatan) {
         this.idTamu = idTamu;
         this.idUser = idUser;
         this.tujuan = tujuan;
@@ -82,6 +84,7 @@ public class TamuModel implements Serializable {
         this.tglDiajukan = tglDiajukan;
         this.jam = jam;
         this.jumlah = jumlah;
+        this.namaAnggota = namaAnggota;
         this.idStatus = idStatus;
         this.alasanVerifikasi = alasanVerifikasi;
         this.username = username;
@@ -281,5 +284,13 @@ public class TamuModel implements Serializable {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getNamaAnggota() {
+        return namaAnggota;
+    }
+
+    public void setNamaAnggota(String namaAnggota) {
+        this.namaAnggota = namaAnggota;
     }
 }

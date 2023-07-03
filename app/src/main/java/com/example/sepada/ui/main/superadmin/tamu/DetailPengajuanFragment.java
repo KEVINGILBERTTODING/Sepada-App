@@ -11,20 +11,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
+import com.example.sepada.data.model.AnggotaModel;
 import com.example.sepada.data.model.ResponseModel;
+import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.databinding.FragmentAdminDetailPengajuanBinding;
 import com.example.sepada.databinding.FragmentSuperAdminDetailPengajuanBinding;
+import com.example.sepada.ui.main.admin.adapter.anggota.AnggotaAdapter;
+import com.example.sepada.ui.main.superadmin.adapter.anggota.SpinnerAnggotaAdapter;
 import com.example.sepada.util.AdminService;
 import com.example.sepada.util.Constans;
 import com.example.sepada.util.SuperAdminService;
@@ -34,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -46,6 +54,13 @@ public class DetailPengajuanFragment extends Fragment {
     private FragmentSuperAdminDetailPengajuanBinding binding;
     private AlertDialog progressDialog;
     private SuperAdminService superAdminService;
+    private String dayName, divisiId, anggotaId;
+    private SpinnerAnggotaAdapter spinnerAnggotaAdapter;
+    private AdminService adminService;
+    private Spinner spAnggota;
+    private List<AnggotaModel> anggotaModelList;
+    private Boolean cekAnggota;
+
 
 
 
@@ -55,6 +70,7 @@ public class DetailPengajuanFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSuperAdminDetailPengajuanBinding.inflate(inflater, container, false);
         superAdminService = ApiConfig.getClient().create(SuperAdminService.class);
+        adminService = ApiConfig.getClient().create(AdminService.class);
 
         binding.etNamInstansi.setText(getArguments().getString("nama_instansi"));
         binding.etTujuanBagian.setText(getArguments().getString("tujuan"));
@@ -102,11 +118,33 @@ public class DetailPengajuanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        getDayName();
+        cekDivisiId(getArguments().getString("tujuan"));
+        getTamuById();
         listener();
     }
 
+    private void cekDivisiId(String divisiName)
+    {
+        if (divisiName.equals("Umum")) {
+            divisiId = String.valueOf("1");
+        }else if (divisiName.equals("Keuangan")) {
+            divisiId = String.valueOf("2");
+        }else if (divisiName.equals("Persidangan")) {
+            divisiId = String.valueOf("3");
+        }else if (divisiName.equals("Humas")) {
+            divisiId = String.valueOf("4");
+        }else if (divisiName.equals("Komisi A")) {
+            divisiId = String.valueOf("5");
+        }else if (divisiName.equals("Komisi B")) {
+            divisiId = String.valueOf("6");
+        }else if (divisiName.equals("Komisi C")) {
+            divisiId = String.valueOf("7");
+        }else if (divisiName.equals("Komisi D")) {
+            divisiId = String.valueOf("8");
+        }
+
+    }
     private void listener() {
         binding.btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +197,22 @@ public class DetailPengajuanFragment extends Fragment {
         EditText etAlasan = dialog.findViewById(R.id.etAlasan);
         btnSetuju = dialog.findViewById(R.id.btnSimpan);
         btnBatal = dialog.findViewById(R.id.btnBatal);
+        spAnggota = dialog.findViewById(R.id.spAnggota);
         dialog.show();
+        getAllAnggota();
+
+        spAnggota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                anggotaId = spinnerAnggotaAdapter.getCategoriesId(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnBatal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,11 +224,12 @@ public class DetailPengajuanFragment extends Fragment {
         btnSetuju.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etAlasan.getText().toString().isEmpty()) {
-                    etAlasan.setError("Tidak boleh kosong");
-                }else {
+                if (cekAnggota == false) {
+                    showToast("err", "Tidak ada jadwal anggota yang hadir");
+                }
+                else {
                     showProgressBar("Loading", "Menyimpan keputusan...", true);
-                    superAdminService.keputusan(2, id, etAlasan.getText().toString()).enqueue(new Callback<ResponseModel>() {
+                    superAdminService.keputusanAcc(2, id, anggotaId).enqueue(new Callback<ResponseModel>() {
                         @Override
                         public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                             showProgressBar("d", "d", false);
@@ -256,6 +310,94 @@ public class DetailPengajuanFragment extends Fragment {
                         }
                     });
                 }
+            }
+        });
+    }
+
+    private void getDayName() {
+        showProgressBar("Loading", "Memuat data...", true);
+        superAdminService.getDay(getArguments().getString("id")).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                showProgressBar("s", "s", false);
+                if (response.isSuccessful() && response.body() != null) {
+                    dayName = response.body().getDay();
+
+                }else {
+                    showToast("err", "Terjadi kesalahan");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                showProgressBar("s", "s", false);
+                showToast("err", "Tidak ada koneksi internet");
+
+
+
+
+            }
+        });
+    }
+
+
+    private void getAllAnggota(){
+        showProgressBar("Loading", "Memuat data...", true);
+        adminService.getAnggotaJadwal(divisiId, dayName).enqueue(new Callback<List<AnggotaModel>>() {
+            @Override
+            public void onResponse(Call<List<AnggotaModel>> call, Response<List<AnggotaModel>> response) {
+                showProgressBar("d", "ds", false);
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    anggotaModelList = response.body();
+                    spinnerAnggotaAdapter = new SpinnerAnggotaAdapter(getContext(), anggotaModelList);
+                    spAnggota.setAdapter(spinnerAnggotaAdapter);
+                    cekAnggota = true;
+
+                }else {
+                    cekAnggota = false;
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AnggotaModel>> call, Throwable t) {
+                showProgressBar("d", "ds", false);
+                cekAnggota = false;
+                showToast("err", "Tidak ada koneksi internet");
+
+            }
+        });
+
+
+    }
+
+    private void getTamuById() {
+        showProgressBar("Loading", "Memuat data...", true);
+        superAdminService.getTamuById(id).enqueue(new Callback<TamuModel>() {
+            @Override
+            public void onResponse(Call<TamuModel> call, Response<TamuModel> response) {
+                showProgressBar("", "",false);
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getNamaAnggota() != null) {
+
+                        binding.etNamaAnggota.setText(response.body().getNamaAnggota());
+                    } else {
+                        binding.etNamaAnggota.setText("Tidak ada data");
+                    }
+                }else {
+                    showToast("err", "Terjadi kesalahan");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TamuModel> call, Throwable t) {
+                showProgressBar("", "",false);
+                binding.etNamaAnggota.setText("Tidak ada data");
+                showToast("err", "Tidak ada koneksi internet");
+
+
+
             }
         });
     }

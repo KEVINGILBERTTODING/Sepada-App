@@ -23,10 +23,12 @@ import androidx.fragment.app.Fragment;
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
 import com.example.sepada.data.model.ResponseModel;
+import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.databinding.FragmentAdminDetailPengajuanBinding;
 import com.example.sepada.databinding.FragmentDetailPengajuanBinding;
 import com.example.sepada.util.AdminService;
 import com.example.sepada.util.Constans;
+import com.example.sepada.util.SuperAdminService;
 
 import org.w3c.dom.Text;
 
@@ -46,6 +48,7 @@ public class DetailPengajuanFragment extends Fragment {
     private FragmentAdminDetailPengajuanBinding binding;
     private AlertDialog progressDialog;
     private AdminService adminService;
+    private SuperAdminService superAdminService;
 
 
 
@@ -55,6 +58,7 @@ public class DetailPengajuanFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAdminDetailPengajuanBinding.inflate(inflater, container, false);
         adminService = ApiConfig.getClient().create(AdminService.class);
+        superAdminService  = ApiConfig.getClient().create(SuperAdminService.class);
 
         binding.etNamInstansi.setText(getArguments().getString("nama_instansi"));
         binding.etTujuanBagian.setText(getArguments().getString("tujuan"));
@@ -85,8 +89,7 @@ public class DetailPengajuanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        getTamuById();
         listener();
     }
 
@@ -320,6 +323,38 @@ public class DetailPengajuanFragment extends Fragment {
             }
         }
     }
+
+
+    private void getTamuById() {
+        showProgressBar("Loading", "Memuat data...", true);
+        superAdminService.getTamuById(id).enqueue(new Callback<TamuModel>() {
+            @Override
+            public void onResponse(Call<TamuModel> call, Response<TamuModel> response) {
+                showProgressBar("", "",false);
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getNamaAnggota() != null) {
+
+                        binding.etNamaAnggota.setText(response.body().getNamaAnggota());
+                    } else {
+                        binding.etNamaAnggota.setText("Tidak ada data");
+                    }
+                }else {
+                    showToast("err", "Terjadi kesalahan");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TamuModel> call, Throwable t) {
+                showProgressBar("", "",false);
+                binding.etNamaAnggota.setText("Tidak ada data");
+                showToast("err", "Tidak ada koneksi internet");
+
+
+
+            }
+        });
+    }
+
     private void showToast(String jenis, String text) {
         if (jenis.equals("success")) {
             Toasty.success(getContext(), text, Toasty.LENGTH_SHORT).show();

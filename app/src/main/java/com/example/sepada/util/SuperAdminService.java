@@ -3,6 +3,7 @@ package com.example.sepada.util;
 import com.example.sepada.data.model.AnggotaModel;
 import com.example.sepada.data.model.DivisiModel;
 import com.example.sepada.data.model.ResponseModel;
+import com.example.sepada.data.model.TamuModel;
 
 import java.util.List;
 
@@ -21,6 +22,16 @@ public interface SuperAdminService {
             @Field("id_tamu") String idTamu,
             @Field("alasan") String alasan
     );
+
+    @FormUrlEncoded
+    @POST("superadmin/keputusanAcc")
+    Call<ResponseModel> keputusanAcc(
+            @Field("id_status") Integer idStatus,
+            @Field("id_tamu") String idTamu,
+            @Field("anggota_id") String anggotaId
+    );
+
+
 
     @FormUrlEncoded
     @POST("superadmin/addAdmin")
@@ -92,6 +103,17 @@ public interface SuperAdminService {
             @Field("divisi_id") String divisiId,
             @Field("no_telp") String noTelp
     );
+
+    @FormUrlEncoded
+    @POST("superadmin/getDay")
+    Call<ResponseModel> getDay(
+            @Field("id") String id
+    );
+    @GET("superadmin/getcutibyid")
+    Call<TamuModel> getTamuById(
+            @Query("id") String id
+    );
+
 
 
 

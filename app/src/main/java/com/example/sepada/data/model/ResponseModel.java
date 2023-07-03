@@ -10,10 +10,13 @@ public class ResponseModel implements Serializable {
     Integer code;
     @SerializedName("message")
     String message;
+    @SerializedName("day")
+    private String day;
 
-    public ResponseModel(Integer code, String message) {
+    public ResponseModel(Integer code, String day, String message) {
         this.code = code;
         this.message = message;
+        this.day = day;
     }
 
     public Integer getCode() {
@@ -30,5 +33,13 @@ public class ResponseModel implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }
