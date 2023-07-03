@@ -66,22 +66,16 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:id="@+id/lrButtonMenu"
                 android:layout_alignParentRight="true"
-
+                android:layout_centerVertical="true"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:background="@drawable/baseline_edit_24"
-                    android:backgroundTint="@color/yellow"
+                    android:background="@drawable/baseline_keyboard_arrow_right_24"
+                    android:backgroundTint="@color/main"
                     android:id="@+id/btnEdit"/>
-                <ImageButton
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:background="@drawable/baseline_delete_24"
-                    android:backgroundTint="@color/red"
-                    android:id="@+id/btnDelete"/>
+
 
 
             </LinearLayout>

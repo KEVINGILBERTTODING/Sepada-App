@@ -1,5 +1,6 @@
 package com.example.sepada.util;
 
+import com.example.sepada.data.model.AnggotaModel;
 import com.example.sepada.data.model.DivisiModel;
 import com.example.sepada.data.model.ResponseModel;
 
@@ -10,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface SuperAdminService {
     @FormUrlEncoded
@@ -64,6 +66,33 @@ public interface SuperAdminService {
             @Field("nama_divisi") String namaDivisi,
             @Field("id") String id
     );
+
+    @GET("superadmin/getallanggota")
+    Call<List<AnggotaModel>> getAllAnggota();
+
+    @FormUrlEncoded
+    @POST("superadmin/insertanggota")
+    Call<ResponseModel> insertAnggota(
+            @Field("nama_lengkap") String namaLengkap,
+            @Field("divisi_id") String divisiId,
+            @Field("no_telp") String noTelp
+    );
+
+    @FormUrlEncoded
+    @POST("superadmin/deleteAnggota")
+    Call<ResponseModel> deleteAnggota(
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("superadmin/updateanggota")
+    Call<ResponseModel> updateAnggota(
+            @Field("id") String id,
+            @Field("nama_lengkap") String namaLengkap,
+            @Field("divisi_id") String divisiId,
+            @Field("no_telp") String noTelp
+    );
+
 
 
 

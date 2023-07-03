@@ -17,6 +17,7 @@ import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
 import com.example.sepada.databinding.FragmentAdminHomeBinding;
 import com.example.sepada.databinding.FragmentUserProfileBinding;
+import com.example.sepada.ui.main.admin.divisi.DivisiFragment;
 import com.example.sepada.ui.main.admin.tamu.TamuFragment;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.util.AdminService;
@@ -69,6 +70,12 @@ public class AdminHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new UsersFragment());
+            }
+        });
+        binding.cvMenuJadwal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DivisiFragment());
             }
         });
     }

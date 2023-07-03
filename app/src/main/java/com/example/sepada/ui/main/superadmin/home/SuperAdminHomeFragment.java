@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sepada.R;
 import com.example.sepada.data.api.ApiConfig;
+import com.example.sepada.data.model.AnggotaModel;
 import com.example.sepada.data.model.DivisiModel;
 import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
@@ -20,6 +21,7 @@ import com.example.sepada.databinding.FragmentAdminHomeBinding;
 import com.example.sepada.databinding.FragmentSuperAdminHomeBinding;
 import com.example.sepada.ui.main.admin.users.UsersFragment;
 import com.example.sepada.ui.main.superadmin.admin.AdminFragment;
+import com.example.sepada.ui.main.superadmin.anggota.AnggotaFragment;
 import com.example.sepada.ui.main.superadmin.divisi.DivisiFragment;
 import com.example.sepada.ui.main.superadmin.tamu.TamuFragment;
 import com.example.sepada.util.AdminService;
@@ -62,6 +64,7 @@ public class SuperAdminHomeFragment extends Fragment {
         getAllUsers(1, binding.tvTotalUser);
         getAllUsers(2, binding.tvTotalAdmin);
         getAllDivisi();
+        getAllAnggota();
     }
 
     private void listener() {
@@ -91,6 +94,13 @@ public class SuperAdminHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new DivisiFragment());
+            }
+        });
+
+        binding.cvMenuAnggota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new AnggotaFragment());
             }
         });
     }
@@ -158,6 +168,30 @@ public class SuperAdminHomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<DivisiModel>> call, Throwable t) {
+                showProgressBar("s", "s", false);
+                showToast("err", "Tidak ada koneksi internet");
+
+
+            }
+        });
+    }
+
+    private void getAllAnggota(){
+        showProgressBar("Loading", "Memuat data...", true);
+        superAdminService.getAllAnggota().enqueue(new Callback<List<AnggotaModel>>() {
+            @Override
+            public void onResponse(Call<List<AnggotaModel>> call, Response<List<AnggotaModel>> response) {
+                showProgressBar("s", "s", false);
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    binding.tvTotalAnggota.setText(String.valueOf(response.body().size()));
+                }else {
+                    binding.tvTotalAnggota.setText("0");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<AnggotaModel>> call, Throwable t) {
                 showProgressBar("s", "s", false);
                 showToast("err", "Tidak ada koneksi internet");
 

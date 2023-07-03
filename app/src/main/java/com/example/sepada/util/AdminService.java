@@ -1,5 +1,6 @@
 package com.example.sepada.util;
 
+import com.example.sepada.data.model.AnggotaModel;
 import com.example.sepada.data.model.ResponseModel;
 import com.example.sepada.data.model.TamuModel;
 import com.example.sepada.data.model.UserDetailModel;
@@ -75,6 +76,19 @@ public interface AdminService {
     @POST("admin/deleteUser")
     Call<ResponseModel> deleteUser(
             @Field("id") String id
+    );
+
+    @GET("admin/getAnggotaJadwal")
+    Call<List<AnggotaModel>>getAnggotaJadwal (
+            @Query("divisi_id") String divisiId,
+            @Query("day") String day
+    );
+
+    @FormUrlEncoded
+    @POST("admin/updateAnggota")
+    Call<ResponseModel> updateAnggota(
+            @Field("id") String id,
+            @Field("day") String day
     );
 
 
